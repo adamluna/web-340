@@ -2,5 +2,5 @@
 Repo for Bellevue University's Node.js course
 
 # contributors
-Professor Krasso - Bellevue University
+Professor Massoud - Bellevue University
 Adam Luna - Bellevue University
