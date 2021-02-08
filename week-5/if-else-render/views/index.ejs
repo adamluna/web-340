@@ -1,0 +1,18 @@
+<!--
+==========================================
+; Title: index.ejs
+; Author: Adam Luna
+; Date: 07 February 2021
+; Description: This is the index page for luna-exercise5.2.js
+; ========================================
+-->
+
+<div>
+    <br/><br />
+    <h2>Names List</h2>
+    <% for (var k = 0; k < names.length; k++) { %> <% if (names.length > 0) { %>
+    <div>
+      <strong><%= names[k] %></strong>
+    </div>
+    <% } %> <% } %>
+  </div>
