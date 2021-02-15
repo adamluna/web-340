@@ -1,0 +1,27 @@
+body {
+  color: black;
+}
+
+h2 {
+  font-family: "Montserrat", sans-serif;
+}
+
+p {
+  font-family: "Montserrat", sans-serif;
+}
+
+a {
+  color: teal;
+  text-decoration: none;
+}
+
+.save-btn {
+  color: teal;
+  background-color: #c9eeec;
+}
+
+footer {
+    text-align: center;
+    height: 50px;
+    color: black;
+  }
