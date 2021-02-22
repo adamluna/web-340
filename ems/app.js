@@ -11,6 +11,26 @@ var express = require("express");
 var http = require("http");
 var path = require("path");
 var logger = require("morgan");
+var mongoose=require("mongoose");
+var Employee = require("./models/employee");
+var Schema = mongoose.Schema;
+
+// Connect to MongoDB
+var mongoDB = "mongodb+srv://admin:thisisapassword@buwebdev-cluster-1.j3npe.mongodb.net/test";
+mongoose.connect(mongoDB, {
+    useMongoClient: true
+});
+
+mongoose.Promise = global.Promise;
+
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "MongoDB connection error: "));
+db.once("open", function() {
+    console.log("Application connected to mLab MongoDB instance");
+});
+
+
+// Initialize App
 var app = express();
 
 app.set("views", path.resolve(__dirname, "views"));
