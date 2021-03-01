@@ -10,6 +10,7 @@
 var express = require("express");
 var http = require("http");
 var path = require("path");
+var helmet = require('helmet');
 var logger = require("morgan");
 var mongoose=require("mongoose");
 var Employee = require("./models/employee");
@@ -38,6 +39,8 @@ app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(logger("short"));
+
+app.use(helmet.xssFilter());
 
 app.use(express.static(__dirname + "/public"));
 
