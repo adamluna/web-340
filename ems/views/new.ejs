@@ -4,18 +4,25 @@
     <br/><br/>
     <h2><%= message %></h2>
     <div class="form">
-        <label>First Name</label>
-         <input type="text" class="form-control" id="firstName">
+        <label for="txtFirst">First Name</label>
+         <input type="text" class="form-control alert-warning" id="txtFirst">
             </div>
             <div class ="form">
-            <label>Last Name</label>
-            <input type="text" class="form-control"  id="lastName">
+            <label for="txtLast">Last Name</label>
+            <input type="text" class="form-control alert-warning"  id="txtLast">
             </div>
             <div class="form">
-                <label>Job Title</label>
-                <input type="text" class="form-control" id="email">
+                <label for="txtJob">Job Title</label>
+                <input type="text" class="form-control alert-warning" id="txtJob">
             </div>
-            <button class ="save-btn">Save</button>
+            <button class ="save">Save</button>
+      </div>
+      <div class="form">
+          <!-- CSURF -->
+          <input name="_csurf" value="<%= csrfToken %>" type="hidden" />
+          
+          <!-- Submit -->
+          <button class ="save-btn">Save</button>
       </div>
 </div>
 <%- include ('footer') %>

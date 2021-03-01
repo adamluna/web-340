@@ -13,9 +13,9 @@ var path = require("path");
 var helmet = require('helmet');
 var logger = require("morgan");
 var mongoose=require("mongoose");
-vaf bodyParser = require("body-parser");
-vaf cookieParser = require("cookie-parser");
-vaf csrf = require("csurf");
+var bodyParser = require("body-parser");
+var cookieParser = require("cookie-parser");
+var csrf = require("csurf");
 var Employee = require("./models/employee");
 var Schema = mongoose.Schema;
 
@@ -25,7 +25,8 @@ const csrfProtection = csrf({ cookie: true });
 // Connect to MongoDB
 var mongoDB = "mongodb+srv://admin:thisisapassword@buwebdev-cluster-1.j3npe.mongodb.net/test";
 mongoose.connect(mongoDB, {
-    useMongoClient: true
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 });
 
 mongoose.Promise = global.Promise;
@@ -90,13 +91,31 @@ app.get("/list", function (request, response) {
 });
 
 app.post("/process", function(request, response) {
+  app.post("/process", function (request, response) {
+    //console.log(request.body.txtName);
+    if (!request.body.firstName && !request.body.lastName) {
+      response.status(400).send("Entries must have a name");
+      return;
+    }
 
-  console.log(request.body.txtName);
+// get request form data
+var employeeName = request.body.firstName + request.body.lastName;
+console.log(employeeName);
 
-  response.redirect("/");
+// create employee model
+var employee = new Employee({
+  firstName: request.body.firstName,
+  lastname: request.body.lastName,
+});
 
+ // save
+ employee.save(function (error) {
+  if (error) throw error;
+  console.log(employeeName + " saved successfully!");
+});
+response.redirect("/");
 });
 
 http.createServer(app).listen(8080, function () {
   console.log("Application started on port 8080!");
-});
+})});

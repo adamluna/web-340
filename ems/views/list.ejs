@@ -4,13 +4,25 @@
   <br/><br/>
   <h2> <%= message %></h2>
   <p>
-      <table> 
+      <table>
+        <thead> 
     <tr>
       <th>Employee ID</th>
       <th>Name</th>
       <th>Job Title</th>
     </tr>
+  </thead>
+  <tbody>
+    <% employees.forEach(function (entry) {%>
+      <tr>
+        <td><%= entry.employeeID %></td>
+        <td><%= entry.Name %></td>
+        <td><%= entry.jobTitle %></td>
+      </tr>
+  </tbody>
 </table>
+<%} else { %> No entries! <a href="/new">Add one!</a>
+    <% } %>
 </p>
 </div>
 <br/><br/>
