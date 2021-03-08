@@ -104,7 +104,7 @@ app.get("/list", function (request, response) {
     if (!request.body.firstName && !request.body.lastName) {
       response.status(400).send("Entries must have a name");
       return;
-    });
+    }
 
 // get request form data
 var employeeName = request.body.firstName + request.body.lastName;
@@ -125,7 +125,7 @@ var employee = new Employee({
     console.log(employeeName + " saved successfully!");
     response.redirect("/");
   }
-})
+});
 
 // return a single employee's data
 app.get("/view/:queryName", function (req, res) {
@@ -151,4 +151,4 @@ app.get("/view/:queryName", function (req, res) {
 // Create server
 http.createServer(app).listen(app.get('PORT'), function() {
   console.log('App is listening on PORT' + app.get('PORT'));
-});
+})});
