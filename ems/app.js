@@ -117,12 +117,15 @@ var employee = new Employee({
 });
 
  // save
- employee.save(function (error) {
-  if (error) throw error;
-  console.log(employeeName + " saved successfully!");
-});
-response.redirect("/");
-});
+ employee.save(function (err) {
+  if (err) {
+    console.log(err);
+    throw err;
+  } else {
+    console.log(employeeName + " saved successfully!");
+    response.redirect("/");
+  }
+})
 
 // return a single employee's data
 app.get("/view/:queryName", function (req, res) {
