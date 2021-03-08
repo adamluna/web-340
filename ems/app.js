@@ -41,12 +41,6 @@ db.once("open", function() {
 // Initialize App
 var app = express();
 
-app.set('PORT', process.env.PORT || 8080);
-
-app.set("views", path.resolve(__dirname, "views"));
-
-app.set("view engine", "ejs");
-
 app.use(logger("short"));
 
 app.use(helmet.xssFilter());
@@ -78,8 +72,7 @@ app.set("port", process.env.PORT || 3000);
 
 app.get("/", function (request, response) {
   response.render("index", {
-    title: "Home Page",
-    message: "XSS Prevention Example",
+    title: "Index",
   });
 });
 
