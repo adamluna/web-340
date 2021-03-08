@@ -66,37 +66,43 @@ app.use(function (request, response, next) {
   next();
 });
 
+// Routes
+
+// index page
 app.get("/", function (request, response) {
   response.render("index", {
     message: "Employee Management System",
   });
 });
 
+// view page
 app.get("/view", function (request, response) {
   response.render("view", {
     message: "Manage Employees",
   });
 });
 
+// new page
 app.get("/new", function (request, response) {
     response.render("new", {
       message: "Add Employees",
     });
   });
 
+// list page
 app.get("/list", function (request, response) {
   response.render("list", {
     message: "View Employees",
   });
 });
 
-app.post("/process", function(request, response) {
+  // post request form
   app.post("/process", function (request, response) {
     //console.log(request.body.txtName);
     if (!request.body.firstName && !request.body.lastName) {
       response.status(400).send("Entries must have a name");
       return;
-    }
+    });
 
 // get request form data
 var employeeName = request.body.firstName + request.body.lastName;
@@ -116,6 +122,28 @@ var employee = new Employee({
 response.redirect("/");
 });
 
+// return a single employee's data
+app.get("/view/:queryName", function (req, res) {
+  var queryName = req.params["queryName"];
+
+  Employee.find({ lastName: queryName }, function (error, employees) {
+    if (error) {
+      console.log(error);
+      throw error;
+    } else {
+      console.log(employees);
+
+      if (employees.length > 0) {
+        res.render("view", {
+          title: "Manage",
+          employee: employees,
+        });
+      }
+    }
+  });
+});
+
+// Create server
 http.createServer(app).listen(8080, function () {
   console.log("Application started on port 8080!");
-})});
+});
