@@ -70,67 +70,70 @@ app.use(function (request, response, next) {
 
 // Routes
 
-// index page
+app.set("views", path.resolve(__dirname, "views"));
+
+app.set("view engine", "ejs");
+
+app.set("port", process.env.PORT || 3000);
+
 app.get("/", function (request, response) {
   response.render("index", {
-    message: "Employee Management System",
+    title: "Home Page",
+    message: "XSS Prevention Example",
   });
 });
 
-// view page
-app.get("/view", function (request, response) {
-  response.render("view", {
-    message: "Manage Employees",
-  });
-});
-
-// new page
+// response for new page
 app.get("/new", function (request, response) {
-    response.render("new", {
-      message: "Add Employees",
-    });
+  response.render("new", {
+    title: "Add Employee",
   });
+});
 
-// list page
+// response for list page
 app.get("/list", function (request, response) {
-  response.render("list", {
-    message: "View Employees",
+  Employee.find({}, function (error, employees) {
+    if (error) throw error;
+    if (employees.length > 0)
+      response.render("list", {
+        title: "Employee List",
+        employees: employees,
+      });
   });
 });
 
-  // post request form
-  app.post("/process", function (request, response) {
-    //console.log(request.body.txtName);
-    if (!request.body.firstName && !request.body.lastName) {
-      response.status(400).send("Entries must have a name");
-      return;
-    };
-
-// get request form data
-var employeeName = request.body.firstName + request.body.lastName;
-console.log(employeeName);
-
-// create employee model
-var employee = new Employee({
-  firstName: request.body.firstName,
-  lastname: request.body.lastName,
-});
-
- // save
- employee.save(function (err) {
-  if (err) {
-    console.log(err);
-    throw err;
-  } else {
-    console.log(employeeName + " saved successfully!");
-    response.redirect("/");
+// post request for form
+app.post("/process", function (request, response) {
+  if (!request.body.firstName && !request.body.lastName) {
+    response.status(400).send("Entries must have a name");
+    return;
   }
+
+  // get request form data
+  const employeeName = request.body.firstName + request.body.lastName;
+  console.log(employeeName);
+
+  // create employee model
+  const employee = new Employee({
+    firstName: request.body.firstName,
+    lastName: request.body.lastName,
+  });
+
+  // save
+  employee.save(function (err) {
+    if (err) {
+      console.log(err);
+      throw err;
+    } else {
+      console.log(employeeName + " saved successfully!");
+      response.redirect("/");
+    }
+  });
 });
 
-// return a single employee's data
+// Display employee's information
 app.get("/view/:queryName", function (req, res) {
   var queryName = req.params["queryName"];
-
   Employee.find({ lastName: queryName }, function (error, employees) {
     if (error) {
       console.log(error);
@@ -148,7 +151,7 @@ app.get("/view/:queryName", function (req, res) {
   });
 });
 
-// Create server
-http.createServer(app).listen(app.get('PORT'), function() {
-  console.log('App is listening on PORT' + app.get('PORT'));
-})});
+// Create server and listen on specified port
+http.createServer(app).listen(app.get("port"), function () {
+  console.log("Application started on port " + app.get("port"));
+});
