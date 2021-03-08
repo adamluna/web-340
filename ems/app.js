@@ -104,7 +104,7 @@ app.get("/list", function (request, response) {
     if (!request.body.firstName && !request.body.lastName) {
       response.status(400).send("Entries must have a name");
       return;
-    }
+    };
 
 // get request form data
 var employeeName = request.body.firstName + request.body.lastName;
