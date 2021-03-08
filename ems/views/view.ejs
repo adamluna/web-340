@@ -1,12 +1,25 @@
 <%- include ('header') -%> <%- include ('navbar'); -%>
 <div role="main" class="container">
   <br /><br />
-  <h2><%= message %></h2>
+  <h2>Employee Details</h2>
 
   <!-- Display employee's record -->
   <div>
     <div class="form">
-      <label for="txtLast">Name:</label>
+      <label for="txtFirst">First Name:</label>
+      <input
+        type="text"
+        class="form-control alert-warning"
+        id="txtFirst"
+        readonly
+        value="<%= employee[0].lastName %>"
+      />
+    </div>
+  </div>
+  
+  <div>
+    <div class="form">
+      <label for="txtLast">Last Name:</label>
       <input
         type="text"
         class="form-control alert-warning"
