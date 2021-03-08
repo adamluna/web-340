@@ -95,7 +95,7 @@ app.get("/list", function (request, response) {
   });
 });
 
-// post request for form
+// post request for form.
 app.post("/process", function (request, response) {
   if (!request.body.firstName && !request.body.lastName) {
     response.status(400).send("Entries must have a name");
